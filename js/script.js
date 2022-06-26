@@ -5,20 +5,31 @@ const searchData = () => {
     loadData(searchText);
 
     searchInput.value = '';
+    toggleSpinner("addSpinner", "block");
+    toggleSpinner("totalResult", "none");
+    toggleSpinner("notFound", 'none');
+
 };
 
+// add spinner
+const toggleSpinner = (id, display) => {
+    document.getElementById(id).style.display = display;
+}
 // load data using search keywords
 const loadData = async name => {
     const res = await fetch(`https://openlibrary.org/search.json?q=${name}`);
     const data = await res.json();
-    
-    const notFound = document.getElementById("notFound");
+    console.log(data.numFound);
+    document.getElementById("total-res-found").innerText = data.numFound;
+
+
     if (data.docs.length === 0) {
-        notFound.style.display = 'block';
+        toggleSpinner("notFound", 'block');
+        toggleSpinner("addSpinner", 'none');
     } else {
         showDisplay(data.docs);
-        notFound.style.display = 'none';
-    }; 
+        toggleSpinner("notFound", 'none');
+    };
 };
 
 // check cover page id
@@ -65,7 +76,7 @@ const getShortName = (name, checkName) => {
 
 // check pages number 
 const pagesNumber = pages => {
-    if (typeof pages === 'undefined'){
+    if (typeof pages === 'undefined') {
         return "Not Found!";
     } else {
         return pages;
@@ -86,11 +97,9 @@ const verifyPublisher = (publisher) => {
 
 // display data to UI
 const showDisplay = data => {
-
-    const numberOfTotalData = data.length;
     const totalData = data;
 
-    document.getElementById("total-res-found").innerText = numberOfTotalData;
+
     const parentDiv = document.getElementById("parent-div");
     parentDiv.textContent = '';
 
@@ -105,23 +114,26 @@ const showDisplay = data => {
         const publisher = verifyPublisher(element);
         const shortPublisherName = getShortName(publisher, "publisher");
         const publishYear = pagesNumber(element.first_publish_year);
-        
+
 
         const childDiv = document.createElement('div');
         childDiv.innerHTML = `
         <div class="border-solid border-2 border-gray-200 p-2 rounded-md drop-shadow-lg bg-gray-800 opacity-80 text-white">
             <div class = "h-40">
-                <img src = '${ displayImage}' class = 'mx-auto mt-3 mb-2 h-full rounded-lg'>
+                <img src = '${displayImage}' class = 'mx-auto mt-3 mb-2 h-full rounded-lg'>
             </div>
-            <h1>Book Name: ${ shortName}</h1>
-            <h2>Author: ${ shortAuthorName}</h2>
-            <h2>Page: ${ bookPages}</h2>
-            <h4>Publisher: ${ shortPublisherName}</h4>
-            <h4>Publish Year: ${ publishYear}</h4>
+            <h1>Book Name: ${shortName}</h1>
+            <h2>Author: ${shortAuthorName}</h2>
+            <h2>Page: ${bookPages}</h2>
+            <h4>Publisher: ${shortPublisherName}</h4>
+            <h4>Publish Year: ${publishYear}</h4>
         </div>
         `;
         parentDiv.appendChild(childDiv);
     });
+
+    toggleSpinner("addSpinner", "none");
+    toggleSpinner("totalResult", "block");
 };
 
 

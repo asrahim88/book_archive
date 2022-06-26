@@ -10,6 +10,8 @@
     <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
     <!-- tailwind component -->
     <link rel="stylesheet" href="https://unpkg.com/flowbite@1.4.2/dist/flowbite.min.css" />
+    <!-- external css -->
+    <link rel="stylesheet" href="./style/style.css">
 </head>
 
 <body class="bg-[url('./media/cover1.jpg')] bg-cover bg-center bg-no-repeat">
@@ -101,14 +103,48 @@
 
     <!-- main -->
     <main class="w-10/12 mx-auto">
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5   gap-4 mt-10" id="parent-div">
-        </div>
+        <!-- spinner -->
+        <section id="addSpinner" class="hidden">
+            <div class="flex justify-center">
+                <div class="loadingio-spinner-wedges-oi05458ja0r">
+                    <div class="ldio-6trv98pyvxu">
+                        <div>
+                            <div>
+                                <div>
+
+                                </div>
+                            </div>
+                            <div>
+                                <div>
+
+                                </div>
+                            </div>
+                            <div>
+                                <div>
+
+                                </div>
+                            </div>
+                            <div>
+                                <div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- add searching result -->
+        <section id="totalResult">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5   gap-4 mt-10"
+                id="parent-div">
+            </div>
+        </section>
         <!-- not found -->
         <div id="notFound" class="bg-white py-8 border-2 border-gray-900 rounded-lg hidden">
             <h1 class="text-red-800 text-white text-center text-5xl">No Result Found 404!!!</h1>
             <p class="text-red-800 text-center text-xl">Please search again by using any books name!</p>
         </div>
-
     </main>
 
     <!-- footer -->
